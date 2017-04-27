@@ -1,15 +1,30 @@
 package com.murali.logistics.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.murali.ProjectService;
 import com.murali.logistics.model.Logistics;
 
 @Controller
 public class LogisticsController {
+	
+	@Autowired
+	ProjectService projectService;
+	
+	@RequestMapping(value="/findAll")
+	public ModelAndView displayAllLogisticsDetails(){
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("alllogistics");
+		
+		mv.addObject("listLogistics",projectService.getAllLogistics());
+		return mv;
+		
+	}
 	
 	@RequestMapping(value="/show")
 	@ResponseBody

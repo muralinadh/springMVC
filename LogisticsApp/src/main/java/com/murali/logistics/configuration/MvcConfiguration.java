@@ -10,21 +10,21 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages="com.murali.logistics")
+@ComponentScan(basePackages = "com.murali.logistics")
 public class MvcConfiguration extends WebMvcConfigurerAdapter {
-	
+
 	@Override
-	public void addResourceHandlers(ResourceHandlerRegistry registry){
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
 	}
-	
-	@Bean(name="viewResolver")
-	public InternalResourceViewResolver viewResolver(){
+
+	@Bean(name = "viewResolver")
+	public InternalResourceViewResolver viewResolver() {
 		InternalResourceViewResolver irvr = new InternalResourceViewResolver();
-		
+
 		irvr.setPrefix("/WEB-INF/views/");
 		irvr.setSuffix(".jsp");
-		
+
 		return irvr;
 	}
 
