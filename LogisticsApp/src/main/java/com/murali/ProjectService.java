@@ -3,13 +3,52 @@ package com.murali;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.murali.logistics.dao.ProjectDAO;
+import com.murali.logistics.entities.ProjectEntity;
 import com.murali.logistics.model.*;
+
+
 @Service
 public class ProjectService {
 	
-	List<Logistics> logisticCollection = new ArrayList<Logistics >();
+	@Autowired
+	ProjectDAO projectDAO;
+	
+	public boolean saveProject(Project project) {
+		
+		ProjectEntity pe = new ProjectEntity();
+		pe.setProjectId(project.getProjectId());
+		pe.setProjectName(project.getProjectName());
+		pe.setProjectOwner(project.getProjectOwner());
+		pe.setProjectDuration(project.getProjectDuration());
+		pe.setProjectCost(project.getProjectCost());
+		
+		projectDAO.saveProject(pe);
+		
+		return true;
+		
+	}
+	
+public boolean deleteProject(int projectId) {
+		
+		return true;
+		
+	}
+	
+	public Project getProject(int projectId){
+		return null;
+	}
+	
+	public List<Project> getAllProjects() {
+		return null;
+	}
+}
+
+/*
+List<Logistics> logisticCollection = new ArrayList<Logistics >();
 	
 	public ProjectService(){
 		
@@ -26,5 +65,4 @@ public class ProjectService {
 	public List<Logistics> getAllLogistics(){
 		return logisticCollection;
 	}
-
-}
+ */

@@ -1,14 +1,19 @@
 package com.murali.logistics.controllers;
 
+import java.math.BigDecimal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.murali.ProjectService;
 import com.murali.logistics.model.Logistics;
+import com.murali.logistics.model.Project;
 
 @Controller
 public class LogisticsController {
@@ -21,7 +26,7 @@ public class LogisticsController {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("alllogistics");
 		
-		mv.addObject("listLogistics",projectService.getAllLogistics());
+		//mv.addObject("listLogistics",projectService.getAllLogistics());
 		return mv;
 		
 	}
@@ -87,5 +92,28 @@ public class LogisticsController {
 				
 		return mV;
 	} 
+	
+	@RequestMapping(value="/open", method=RequestMethod.GET)
+	public String addProject(){
+		
+		return "addProject";
+	}
+	
+	@RequestMapping(value="/add", method=RequestMethod.POST)
+	public String submitProject(@ModelAttribute Project project){
+		
+		//System.out.println(project);//project.toString()
+		boolean b = projectService.saveProject(project);
+		
+		return "addSpringProject";
+	}
+	
+	@RequestMapping(value="/save", method=RequestMethod.GET)
+	public ModelAndView addSpringProject(){
+		
+		ModelAndView mv = new ModelAndView("addSpringProject","project",new Project());//0,"java","murali",new BigDecimal(12222222),345
+		
+		return mv;
+	}
 
 }
